@@ -1,32 +1,23 @@
 from voiture import Voiture
-from parc_voitures import ParcVoitures
-
-
-def test_voiture():
-    print("Test voiture")
-    v = Voiture("AB123", "Toyota", "Camry", "Jean")
-    print(v)
+from parc import Parc
 
 
 def test_parc():
-    print("Test parc")
-    parc = ParcVoitures("Mon parc")
-    v1 = Voiture("AB123", "Toyota", "Camry", "Jean")
-    v2 = Voiture("CD456", "Honda", "Civic", "Marie")
+    parc = Parc(3)
 
-    parc.ajouter(v1)
-    parc.ajouter(v2)
-    parc.afficher()
+    voiture1 = Voiture("AB123", "Toyota", "Camry", "Jean")
+    voiture2 = Voiture("CD456", "Honda", "Civic", "Marie")
 
-    print("Recherche de AB123")
-    trouve = parc.chercher("AB123")
-    if trouve:
-        print(trouve)
+    parc.entrerVoiture(voiture1)
+    parc.entrerVoiture(voiture2)
 
-    parc.retirer("AB123")
-    parc.afficher()
+    print("Places libres apres entree:", parc.calculerNbrPlacesLibres())
+
+    parc.sortirVoiture("AB123")
+    print("Places libres apres sortie:", parc.calculerNbrPlacesLibres())
+
+    parc.sortirVoiture("ZZ999")
 
 
 if __name__ == "__main__":
-    test_voiture()
     test_parc()
