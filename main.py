@@ -1,87 +1,61 @@
-"""
-Programme principal pour la gestion du parc de voitures.
-"""
-
 from voiture import Voiture
 from parc_voitures import ParcVoitures
 
 
 def afficher_menu():
-    """Affiche le menu principal."""
-    print("\n" + "="*50)
-    print("GESTION DU PARC DE VOITURES")
-    print("="*50)
-    print("1. Ajouter une voiture")
+    print("\n1. Ajouter une voiture")
     print("2. Retirer une voiture")
     print("3. Afficher toutes les voitures")
     print("4. Chercher une voiture")
-    print("5. Afficher les informations du parc")
+    print("5. Voir le nombre de voitures")
     print("6. Quitter")
-    print("="*50)
 
 
 def ajouter_voiture(parc):
-    """Fonction pour ajouter une voiture."""
-    print("\n--- Ajout d'une voiture ---")
-    plaque = input("Plaque d'immatriculation: ").strip().upper()
+    plaque = input("Plaque: ").strip()
     marque = input("Marque: ").strip()
-    modele = input("Modèle: ").strip()
-    proprietaire = input("Propriétaire: ").strip()
-
+    modele = input("Modele: ").strip()
+    proprietaire = input("Proprietaire: ").strip()
     voiture = Voiture(plaque, marque, modele, proprietaire)
-    parc.ajouter_voiture(voiture)
+    parc.ajouter(voiture)
 
 
 def retirer_voiture(parc):
-    """Fonction pour retirer une voiture."""
-    print("\n--- Retrait d'une voiture ---")
-    plaque = input("Plaque d'immatriculation à retirer: ").strip().upper()
-    parc.retirer_voiture(plaque)
+    plaque = input("Plaque a retirer: ").strip()
+    parc.retirer(plaque)
 
 
 def chercher_voiture(parc):
-    """Fonction pour chercher une voiture."""
-    print("\n--- Recherche d'une voiture ---")
-    plaque = input("Plaque d'immatriculation: ").strip().upper()
-    voiture = parc.chercher_voiture(plaque)
-
+    plaque = input("Plaque a chercher: ").strip()
+    voiture = parc.chercher(plaque)
     if voiture:
-        print(f"Voiture trouvée: {voiture}")
+        print("Voiture trouvee:", voiture)
     else:
-        print(f"Aucune voiture trouvée avec la plaque {plaque}.")
+        print("Aucune voiture trouvee.")
 
 
 def main():
-    """Fonction principale."""
-    # Créer un parc de voitures
-    parc = ParcVoitures("Parc Principal", capacite_max=20)
-
-    # Ajouter quelques voitures de démonstration
-    parc.ajouter_voiture(Voiture("AB-123-CD", "Toyota", "Camry", "Jean Dupont"))
-    parc.ajouter_voiture(Voiture("EF-456-GH", "Honda", "Civic", "Marie Martin"))
-    parc.ajouter_voiture(Voiture("IJ-789-KL", "Ford", "Mustang", "Pierre Bernard"))
+    parc = ParcVoitures("Mon parc")
 
     while True:
         afficher_menu()
-        choix = input("Choisir une option (1-6): ").strip()
+        choix = input("Choix: ").strip()
 
         if choix == "1":
             ajouter_voiture(parc)
         elif choix == "2":
             retirer_voiture(parc)
         elif choix == "3":
-            parc.afficher_toutes_voitures()
+            parc.afficher()
         elif choix == "4":
             chercher_voiture(parc)
         elif choix == "5":
-            print(f"\n{parc}")
-            print(f"Détails: {parc.get_nombre_voitures()} voitures, "
-                  f"{parc.get_places_disponibles()} places libres")
+            print("Nombre de voitures:", parc.nombre())
         elif choix == "6":
-            print("\nAu revoir!")
+            print("Au revoir !")
             break
         else:
-            print("Option invalide. Veuillez réessayer.")
+            print("Choix invalide.")
 
 
 if __name__ == "__main__":
